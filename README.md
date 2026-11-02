@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AI Mystery Room
 
 An AI-assisted interactive mystery investigation. The initial foundation provides the responsive React interface, a validated mystery setup form, and an Express API health endpoint backed by MongoDB connectivity. Mystery generation and investigation workflows are not implemented yet; the form clearly reports this and does not submit or save the scenario.
@@ -53,3 +54,7 @@ npm run build
 See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), [`docs/API.md`](docs/API.md), [`docs/DATA_MODELS.md`](docs/DATA_MODELS.md), [`docs/AI_GENERATION.md`](docs/AI_GENERATION.md), and [`docs/TESTING.md`](docs/TESTING.md) for implementation contracts and current limitations.
 
 The project requirements are in [`SPEC.md`](SPEC.md); it is copied from the supplied `.vscode/spec.md` and should be kept synchronized with it when requirements change.
+=======
+# AI_Mystery
+
+>>>>>>> 811b5439ec87f80bfb6f474665dd60a14b3d2ed8

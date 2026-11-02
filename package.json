@@ -14,6 +14,7 @@
     "typecheck": "npm run typecheck -w backend && npm run typecheck -w frontend"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "concurrently": "^9.1.2"
   },
   "dependencies": {

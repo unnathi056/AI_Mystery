@@ -1,42 +1,54 @@
-<<<<<<< HEAD
 # AI Mystery Room
 
-An AI-assisted interactive mystery investigation. The initial foundation provides the responsive React interface, a validated mystery setup form, and an Express API health endpoint backed by MongoDB connectivity. Mystery generation and investigation workflows are not implemented yet; the form clearly reports this and does not submit or save the scenario.
+An AI-assisted interactive mystery investigation. This foundation includes a React interface and an Express API backed by MongoDB. Mystery generation and investigation workflows are not implemented yet; the create form reports this and does not save scenarios.
 
-## Stack
+## Deploy to Render
 
-- Frontend: React, TypeScript, Vite, React Router
-- Backend: Node.js, Express, TypeScript, Mongoose
-- Database: MongoDB
-- Planned AI provider: Google Gemini (not connected in this foundation phase)
+The included [`render.yaml`](render.yaml) deploys the frontend and backend as one Node web service. MongoDB is hosted separately on MongoDB Atlas. The production server serves the built frontend and API from the same origin, so no frontend URL configuration is needed.
 
-## Prerequisites
+### 1. Push the project to GitHub
 
-- Node.js 20 or newer and npm
-- MongoDB running locally, or a MongoDB connection URI
+Create a GitHub repository, then push this project to its default branch. Do not commit `backend/.env`; it contains local settings and is ignored by Git.
 
-## Setup
+### 2. Create a MongoDB Atlas database
+
+1. Sign in to [MongoDB Atlas](https://www.mongodb.com/atlas/database) and create a free cluster.
+2. Create a database user and save its password.
+3. In **Network Access**, allow connections from `0.0.0.0/0` so Render can reach the cluster. Use a strong database password and keep it private.
+4. Select **Connect → Drivers**, copy the connection string, and replace the password placeholder. Use a database name such as `ai-mystery-room` in the URI.
+
+### 3. Create the Render service
+
+1. Sign in to [Render](https://render.com) and choose **New → Blueprint**.
+2. Connect the GitHub repository and select its default branch. Render reads `render.yaml` from the repository root.
+3. When prompted, provide `MONGODB_URI` using the Atlas connection string. Keep it secret; do not put it in source control.
+4. Create the Blueprint and wait for the build and deploy to finish.
+
+### 4. Open and verify the app
+
+Open the `onrender.com` URL shown for the service. Check `https://YOUR-SERVICE.onrender.com/api/health`; a healthy response reports the MongoDB connection as connected. The API and site share the same URL.
+
+### 5. Deploy future changes
+
+Push commits to the connected branch. Render will build and deploy them automatically.
+
+## Run locally
+
+Requirements: Node.js 20 or newer, npm, and a MongoDB instance.
 
 ```sh
-npm install
-cp backend/.env.example backend/.env
+npm ci
 ```
 
-Set `MONGODB_URI` in `backend/.env` to your MongoDB instance. The current foundation does not use the Gemini settings; no API key is needed until the AI generation phase.
-
-## Run
-
-From the repository root, start both services:
+Copy `backend/.env.example` to `backend/.env`, set `MONGODB_URI`, then run:
 
 ```sh
 npm run dev
 ```
 
-The frontend is at `http://localhost:5173`; the backend is at `http://localhost:5000`. You can also run `npm run dev -w frontend` or `npm run dev -w backend` separately.
+The frontend is at `http://localhost:5173`; the backend is at `http://localhost:5000`. The Vite development server proxies `/api` requests to the backend.
 
-Check API and database health at `http://localhost:5000/api/health`. It returns HTTP 200 only when MongoDB is connected, otherwise HTTP 503 with the connection state.
-
-## Build and tests
+## Build and checks
 
 ```sh
 npm run typecheck
@@ -44,17 +56,4 @@ npm test
 npm run build
 ```
 
-## Troubleshooting
-
-- **Backend startup reports invalid configuration:** copy `backend/.env.example` to `backend/.env` and set `MONGODB_URI`.
-- **MongoDB connection failure:** start MongoDB and confirm the URI and network access.
-- **Address already in use:** stop the process using port 5000 or 5173.
-- **Case creation says generation is not connected:** this is expected in the foundation phase. No fictional response is fabricated or persisted.
-
-See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), [`docs/API.md`](docs/API.md), [`docs/DATA_MODELS.md`](docs/DATA_MODELS.md), [`docs/AI_GENERATION.md`](docs/AI_GENERATION.md), and [`docs/TESTING.md`](docs/TESTING.md) for implementation contracts and current limitations.
-
-The project requirements are in [`SPEC.md`](SPEC.md); it is copied from the supplied `.vscode/spec.md` and should be kept synchronized with it when requirements change.
-=======
-# AI_Mystery
-
->>>>>>> 811b5439ec87f80bfb6f474665dd60a14b3d2ed8
+The root `start` script starts the compiled backend. In production it also serves `frontend/dist`.

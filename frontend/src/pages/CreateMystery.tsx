@@ -22,7 +22,7 @@ export function CreateMystery() {
 
     try {
       // ನಿಮ್ಮ ಬ್ಯಾಕ್‌ಎಂಡ್ ರನ್ ಆಗುವ URL (ಸಾಮಾನ್ಯವಾಗಿ port 5000)
-      const response = await fetch("http://localhost:5000/api/cases", {
+      const response = await fetch("/api/cases", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

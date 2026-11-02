@@ -16,7 +16,7 @@ async function start() {
   } catch {
     throw new Error("Could not connect to MongoDB. Check that MongoDB is running and MONGODB_URI is correct.");
   }
-  const app = createApp(env.FRONTEND_URL);
+  const app = createApp(env.FRONTEND_URL, env.NODE_ENV === "production");
   const server = app.listen(env.PORT, () => {
     console.log(`AI Mystery Room API listening on port ${env.PORT}`);
   });
